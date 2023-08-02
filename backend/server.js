@@ -1,30 +1,19 @@
 const express = require('express')
 const dotenv = require('dotenv').config()
+const {errorHandler} = require('./middleware/errorMiddleware')
 const port = process.env.PORT || 5000
 
 
+
 const app = express()
+app.use(express.json())
+app.use(express.urlencoded({ extended:false }))
 
 
-app.get('/api/todos', (req, res) => {
-  res.send('Get Todos.')
-});
+app.use('/api/todos', require('./routes/todoRoutes'))
 
-app.post('/api/todos', (req, res) => {
-  res.send('Set Todo.')
-});
 
-app.get('/api/todos/:id', (req, res) => {
-  res.send('Get Todo.')
-});
-
-app.put('/api/todos/:id', (req, res) => {
-  res.send('Update Todo.')
-});
-
-app.delete('/api/todos/:id', (req, res) => {
-  res.send('Delete Todo.')
-});
+app.use(errorHandler)
 
 app.listen(port, () => {
   console.log(`Server started on port ${port}`)
