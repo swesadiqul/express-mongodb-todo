@@ -1,12 +1,13 @@
 const errorHandler = require('express-async-handler')
-
+const Todo = require('../models/todoModel')
 
 // @desc  get all todo
 // @route GET /api/todos
 // @access private
 const getTodos = errorHandler(async (req, res) => {
-    res.status(200).json({"message": "Get all Todo"});
-})
+    const todos = await Todo.find()
+    res.status(200).json(todos);
+});
 
 // @desc  add todo
 // @route POST /api/todos
