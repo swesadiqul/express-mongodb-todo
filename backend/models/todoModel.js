@@ -6,6 +6,14 @@ const todoSchema = mongoose.Schema(
       type: String,
       required: [true, "This field is required."],
     },
+    description: {
+      type: String,
+      required: [true, "This field is required."],
+    },
+    completed: {
+      type: Boolean,
+      default: false,
+    },
   },
   {
     timestamps: true
